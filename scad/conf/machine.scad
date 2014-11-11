@@ -1,1 +1,1 @@
-include <dibond_config.scad>
+include <lawlor90_config.scad>

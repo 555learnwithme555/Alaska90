@@ -31,11 +31,19 @@ M5_cap_screw   = ["CS050", "M5 cap screw",       hs_cap,   5, 8.5, 4,     M5_was
 M8_cap_screw   = ["CS080", "M8 cap screw",       hs_cap,   8, 13,  6.0,   M8_washer, M8_nut, M8_tap_radius,    M8_clearance_radius];
 M8_hex_screw   = ["HX080", "M8 hex screw",       hs_hex,   8, 15,  5.65,  M8_washer, M8_nut, M8_tap_radius,    M8_clearance_radius];
 
+QI_tap_radius=4.4/2;
+QI_clearance_radius=6.6/2;
+QI_cap_screw   = ["INCH14H", "1/4in cap screw",   hs_cap,   6.4, 9.4,  6.4,   M8_washer, QI_nut, QI_tap_radius,    QI_clearance_radius];
+QI_hex_screw   = ["INCH14C", "1/4in hex screw",   hs_hex,   6.4, 11,  4.5,  M8_washer, QI_nut, QI_tap_radius,    QI_clearance_radius];
+
+
 No2_screw      = ["PSW02", "No2 pan wood screw", hs_pan, 2.2, 4.2, 1.7, M2p5_washer, false,  No2_pilot_radius, No2_clearance_radius];
 No4_screw      = ["PSW04", "No4 pan wood screw", hs_pan, 3.0, 5.5, 2.0, M3p5_washer, false,  No4_pilot_radius, No4_clearance_radius];
 No6_screw      = ["PSW06", "No6 pan wood screw", hs_pan, 3.5, 6.7, 2.2,   M4_washer, false,  No6_pilot_radius, No6_clearance_radius];
 No6_cs_screw   = ["PSW06", "No6 cs  wood screw", hs_cs,  3.5, 7.0, 0,     M4_washer, false,  No6_pilot_radius, No6_clearance_radius];
 No632_pan_screw =["PS063", "6-32 pan screw",     hs_pan, 3.5, 6.9, 2.5,   M4_washer, false,  No6_pilot_radius, No6_clearance_radius];
+
+
 
 function screw_washer(type) = type[6];
 function screw_nut(type)    = type[7];

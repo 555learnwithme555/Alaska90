@@ -9,6 +9,7 @@
 //
 M3x13_pillar = [3, 13, 6.5, 6];
 M3x20_pillar = [3, 20, 5.5, 7];
+QIx13_pillar=[6.5, 13, 7, 12];
 
 function pillar_height(type) = type[1];
 

@@ -16,6 +16,11 @@ M6_nut      = [6, 11.5,  5, 8,    M6_washer,     M6_nut_depth];
 M6_half_nut = [6, 11.5,  3, 8,    M6_washer,     3];
 M8_nut      = [8, 15,  6.5, 8,    M8_washer,     M8_nut_depth];
 
+QI_nut = [6.4,11,6.5,6.4, M8_washer, 6.4];
+
+Z_nut      = [12.6, 22, 12.2, 12.6,    M8_washer,     M8_nut_depth];
+
+
 function nut_radius(type) = type[1] / 2;
 function nut_flat_radius(type) = nut_radius(type) * cos(30);
 function nut_thickness(type, nyloc = false) = nyloc ? type[3] : type[2];

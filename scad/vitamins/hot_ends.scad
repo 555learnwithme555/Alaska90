@@ -9,6 +9,7 @@
 Stoffel = 1;
 m90     = 2;
 jhead   = 3;
+makerbot = 4;
 
 function jhead_groove() = 4.64;
 function jhead_groove_offset() = 5.1; //4.76;
@@ -21,6 +22,11 @@ m90_hot_end_12p75mm = [m90,      "HEM90340: Mendel 90 hot end", 57, 10,         
 
 JHeadMk4 =            [jhead,   "HEJH16340: JHead MK4 hot end", 64, jhead_inset, 16,    50, "black", 12,            true, 10.19 + 4, [0, 2.94, -5]];
 JHeadMk5 =            [jhead,   "HEJH16340: JHead MK5 hot end", 54, jhead_inset, 16,    40, "black", 12,            true, 9     + 4, [0, 2.38, -5]];
+
+// OSL addition:
+makerbotMk6 =         [makerbot,  "Makerbot Mk6 hot end", 74, 20, 16,    40, "black", 12,            true, 9     + 4, false];
+
+
 
 function hot_end_style(type)              = type[0];
 function hot_end_part(type)               = type[1];
