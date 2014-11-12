@@ -90,5 +90,5 @@ frame_thick_screw = QI_hex_screw; // M4_pan_screw;           // Used with tapped
 //
 // Feature sizes
 //
-default_wall = 5;
-thick_wall = 6;
+default_wall = 4;
+thick_wall = 5;

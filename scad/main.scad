@@ -188,7 +188,11 @@ Y_bar_length =  base_depth - 2 * base_clearance;
 
 Y_bar_length2 = Y_travel + limit_switch_offset + bearing_mount_length(Y_bearings) + 2 * bar_clamp_depth + axis_end_clearance + bar_clamp_switch_y_offset();
 
-Y_bar_spacing = Y_carriage_width - bearing_mount_width(Y_bearings);
+// This is the distance between the support bars under the bed.
+//  Putting 'em at gauss points is much more deflection-efficient than at the ends. (OSL)
+// Y_bar_spacing = Y_carriage_width - bearing_mount_width(Y_bearings);
+Y_bar_spacing = 0.66*(Y_carriage_width - bearing_mount_width(Y_bearings));
+
 Y_bearing_inset = bearing_mount_length(Y_bearings) / 2 + bar_clamp_depth + axis_end_clearance;
 
 Y_belt_motor_offset = 13 + belt_width(Y_belt) / 2;
