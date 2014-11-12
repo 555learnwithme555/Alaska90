@@ -57,7 +57,8 @@ z_slot_inset = max((washer_diameter(frame_washer) + 2),
 
 z_nut_offset = frame_nut_traps ? -z_slot_inset + nut_radius(frame_nut) + 0.5 : 0;
 
-function z_motor_bracket_hole_offset() = ceil(NEMA_width(Z_motor)) / 2 - z_slot_inset + z_nut_offset;
+function z_motor_bracket_width() = ceil(NEMA_width(Z_motor)) + thick_wall; // OSL
+function z_motor_bracket_hole_offset() = z_motor_bracket_width()/2 - z_slot_inset + z_nut_offset;
 
 left_stay_x = max(-base_width / 2 + left_w / 2,
                   idler_end - z_bar_offset() + z_motor_bracket_hole_offset() + washer_diameter(M4_washer) / 2 + 1) + sheet_thickness(frame) / 2;

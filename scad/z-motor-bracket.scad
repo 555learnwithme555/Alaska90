@@ -12,7 +12,7 @@ include <positions.scad>
 use <z-coupling.scad>
 
 corner_rad = 5;
-length = ceil(NEMA_width(Z_motor)); 
+length = z_motor_bracket_width();  // OSL
 thickness = 4;
 back_thickness = part_base_thickness + (frame_nut_traps ? nut_trap_depth(frame_nut) : 0);
 back_height = 36; // 24; // OSL
@@ -31,7 +31,7 @@ function z_motor_bracket_height() = back_height;
 
 module z_motor_bracket_orient() {
     translate([z_bar_offset(),0,0]) {
-        rotate([0,0,90]) {
+        rotate([0,0,86]) {
           child();
         }
     }
