@@ -17,14 +17,14 @@ X_motor = NEMA17;
 Y_motor = NEMA17;
 Z_motor = NEMA17;
 
-hot_end = makerbotMk6;
+hot_end = JHeadMk5; // an eBay copy, at least!
 
-X_travel = 305; // 12" (trimmed to get total width below 24")
+X_travel = 605; // 24"
 Y_travel = 590; // 24" (trimmed to get total base length below 48")
-Z_travel = 390; // 15" (trimmed to get total Z under 24")
+Z_travel = 605; // 23" (trimmed to get total Z at about 32")
 
-bed_depth = 490; // trimmed to leave some meat over gantry
-bed_width = 310;
+bed_depth = 615; // trimmed to leave some meat over gantry
+bed_width = 615;
 bed_pillars = QIx13_pillar; // M3x20_pillar;
 bed_glass = glass2;
 bed_thickness = pcb_thickness + sheet_thickness(bed_glass);    // PCB heater plus glass sheet
@@ -40,11 +40,11 @@ frame_nuts = false;
 case_fan = fan80x38;
 psu = ALPINE500;
 //psu = KY240W;
-controller = Melzi;
+controller = Melzi; // 2.0, from eBay
 //controller = Sanguinololu;
 spool = spool_300x85;
 bottom_limit_switch = true;
-top_limit_switch = true;
+top_limit_switch = false;
 
 single_piece_frame = true;
 stays_from_window = false;
@@ -56,14 +56,25 @@ Y_belt = T5x6;
 
 motor_shaft = 5;
 
-Z_screw_dia = 12.6;            // Studding for Z axis: 1/2" ACME rod, 10tpi
 
 Y_carriage_depth = bed_holes[1] + 8;
 Y_carriage_width = bed_holes[0] + 8;
 
+
+/*
+// Z axis: 1/2" ACME rod, 10tpi looks way too big to fit in Z endpieces.
+Z_screw_dia = 12.6;            
 Z_nut_radius = 11; // M8_nut_radius;
 Z_nut_depth = 12.25; // M8_nut_depth;
 // Z_nut = M8_nut;
+*/
+
+// Z axis: 3/8" ACME rod
+Z_screw_dia = 9.5;            
+Z_nut_radius = 17.4/2;
+Z_nut_depth = 9.2; 
+Z_nut = M8_nut; // only for inventory
+
 
 //
 // Default screw use where size doesn't matter
