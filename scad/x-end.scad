@@ -14,7 +14,8 @@ use <pulley.scad>
 use <ribbon_clamp.scad>
 use <wade.scad>
 
-bwall = 2.3;
+// bwall = 2.3; // OSL
+bwall = 3.0;
 
 bearing_dia = Z_bearings[1];
 bearing_width = bearing_dia + 2 * bwall;

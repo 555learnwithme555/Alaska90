@@ -12,10 +12,10 @@ include <positions.scad>
 use <z-coupling.scad>
 
 corner_rad = 5;
-length = ceil(NEMA_width(Z_motor));
+length = ceil(NEMA_width(Z_motor));  // == 
 thickness = 4;
 back_thickness = part_base_thickness + (frame_nut_traps ? nut_trap_depth(frame_nut) : 0);
-back_height = 24;
+back_height = 36; // 24; // OSL
 big_hole = NEMA_big_hole(Z_motor);
 clamp_height = washer_diameter(washer) + 3;
 clamp_thickness = bar_clamp_band;

@@ -153,7 +153,11 @@ module wire_hole_or_slot(r) {
             wire_hole(r);
 }
 
-function z_bar_offset() = round(NEMA_width(Z_motor)) / 2;
+// z_bar_offset is the X distance between the Z motor centerline and the Z smooth rod centerline
+function z_bar_offset() = max(
+	round(NEMA_width(Z_motor)) / 2,  // original
+	Z_bearings[0]/2+Z_nut_radius+2 // modified for big guide rods and small motors
+);
 
 base_screw = sheet_is_soft(base) ? frame_soft_screw : (base_nuts ? frame_thin_screw : frame_thick_screw);
 base_nut = base_nuts ? screw_nut(base_screw) : false;

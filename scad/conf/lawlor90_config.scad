@@ -71,7 +71,7 @@ Z_nut_depth = 12.25; // M8_nut_depth;
 
 // Z axis: 3/8" ACME rod
 Z_screw_dia = 9.5;            
-Z_nut_radius = 17.4/2;
+Z_nut_radius = 20.0/2; // "radius" == point to point, not across flats!
 Z_nut_depth = 9.2; 
 Z_nut = M8_nut; // only for inventory
 

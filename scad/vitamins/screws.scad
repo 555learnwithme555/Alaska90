@@ -34,7 +34,7 @@ M8_hex_screw   = ["HX080", "M8 hex screw",       hs_hex,   8, 15,  5.65,  M8_was
 QI_tap_radius=4.4/2;
 QI_clearance_radius=6.6/2;
 QI_cap_screw   = ["INCH14H", "1/4in cap screw",   hs_cap,   6.4, 9.4,  6.4,   M8_washer, QI_nut, QI_tap_radius,    QI_clearance_radius];
-QI_hex_screw   = ["INCH14C", "1/4in hex screw",   hs_hex,   6.4, 11,  4.5,  M8_washer, QI_nut, QI_tap_radius,    QI_clearance_radius];
+QI_hex_screw   = ["INCH14C", "1/4in hex screw",   hs_hex,   6.4, 13,  4.5,  M8_washer, QI_nut, QI_tap_radius,    QI_clearance_radius];
 
 
 No2_screw      = ["PSW02", "No2 pan wood screw", hs_pan, 2.2, 4.2, 1.7, M2p5_washer, false,  No2_pilot_radius, No2_clearance_radius];
