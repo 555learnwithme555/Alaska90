@@ -10,18 +10,22 @@
 include <conf/config.scad>
 include <positions.scad>
 
-wall = 2;
+wall = default_wall; // 2;
 
-clearance = 2;
+clearance = 3;
 thickness = M3_nut_trap_depth + bearing_clamp_tab_height;
 rad = 3;
 
-clamp_thickness = 2.8;
+clamp_thickness = default_wall; // 2.8;
 
 width = belt_width(Y_belt) + 3 + washer_diameter(M3_washer) + clearance;
 inner_width = (M3_nut_radius + wall) * 2;
 depth =  washer_diameter(M3_washer) + clearance;
-length = depth + 2 * (2 * M3_nut_radius * cos(30) + wall);
+
+length = 45; // depth + 2 * (2 * M3_nut_radius * cos(30) + wall);
+
+mount_hole_distance=length / 2 - M3_nut_radius *1.5 - eta; // orig
+// mount_hole_distance=30; // OSL
 
 tooth_height = belt_thickness(Y_belt) / 2;
 tooth_pitch = belt_pitch(Y_belt);
@@ -32,7 +36,7 @@ function y_belt_anchor_depth() = depth;
 
 module y_belt_anchor_holes() {
     for(side = [-1, 1])
-        translate([0, side * (depth / 2 + M3_nut_radius * cos(30) + eta) + depth / 2, 0])
+        translate([0, side * (mount_hole_distance) + depth / 2, 0])
             child();
 
 }
@@ -67,7 +71,7 @@ module y_belt_anchor(height, toothed) {
                     rotate([0,0,90/7 * (side + 1)])
                         nut_trap(M3_clearance_radius, M3_nut_radius, height - clamp_thickness);
 
-                translate([0, side * (depth / 2 + M3_nut_radius * cos(30) + eta) + depth / 2, thickness])  // mounting screw nut traps
+                translate([0, side * (mount_hole_distance) + depth / 2, thickness])  // mounting screw nut traps
                     nut_trap(M3_clearance_radius, M3_nut_radius, M3_nut_trap_depth);
 
             }
@@ -127,7 +131,7 @@ module y_belt_anchor_assembly(height, toothed) {
             }
     }
     for(side = [-1, 1])
-        translate([0, side * (depth / 2 + M3_nut_radius * cos(30) + eta) + depth / 2, 0]) {
+        translate([0, side * (mount_hole_distance) + depth / 2, 0]) {
             translate([0, 0, thickness - M3_nut_trap_depth])
                 nut(M3_nut, true);
             translate([0, 0, - sheet_thickness(Y_carriage)])
