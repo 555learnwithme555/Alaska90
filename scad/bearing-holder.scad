@@ -11,8 +11,8 @@
 //
 include <conf/config.scad>
 
-wall = 2.5;                            // wall thickness
-end_wall = 2.8;
+wall = 3.5;                            // wall thickness
+end_wall = 3.8;
 clearance = 0.2;                       // end clearance
 relief = 0.5;                          // clearance in the middle to stop the bearing rocking
 ziptie_clearance = 1;
@@ -33,7 +33,7 @@ module bearing_holder(bearing, bar_height, populate = false, rad = 0) {
     below = 5 * bearing_dia / 15;
     height = bar_height + bearing_dia/2 - below;
     offset = below + height / 2 - bearing_dia / 2;
-    fence = 2.5;
+    fence = 4.5;
     fence_width = sqrt(bearing_dia * bearing_dia - 4 * below * below) + eta;
     width = bearing_holder_width(bearing);
     length = bearing_holder_length(bearing);
@@ -60,9 +60,11 @@ module bearing_holder(bearing, bar_height, populate = false, rad = 0) {
             rotate([90,0,0]) {
                 cylinder(h = length + 1, r = bearing_dia / 2, center=true);         // Bearing Cutout
                 cylinder(h = length / 2, r = bearing_dia / 2 + relief, center=true);// releave the center so does not rock
+               
+               translate([0,zipslot_tickness,0]) {
                 tube(h = zipslot_width, ir = bearing_dia / 2 + wall,
                                         or = bearing_dia / 2 + wall + zipslot_tickness, fn=64); // ziptie slot
-
+               }
             }
         }
         translate([0,  (length - end_wall)/ 2, -fence_offset]) cube(size = [fence_width,end_wall,fence + 1], center = true); // Blocks at the end to keep the bearing from sliding out

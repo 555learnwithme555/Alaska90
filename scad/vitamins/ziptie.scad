@@ -10,6 +10,7 @@
 
 // [width, thickness, [latch_x, latch_y, latch_z], color, length]
 small_ziptie = [2.5, 1, [4.7, 4.25, 3], small_ziptie_color, 25];
+black_ziptie = [4.6, 1.8, [9.5, 8, 5.5], [0.1,0.1,0.1], 100];
 
 function ziptie_width(type) = type[0];
 function ziptie_thickness(type) = type[1];
