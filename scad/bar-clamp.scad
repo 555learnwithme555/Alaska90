@@ -12,6 +12,7 @@ include <positions.scad>
 
 nut_trap_meat = 4;                  // how much plastic above the nut trap
 wall = 3;
+clamp_tab_fillet=2.5;
 
 function bar_clamp_inner_rad(d) = d / 2;
 function bar_clamp_outer_rad(d) = bar_clamp_inner_rad(d) + bar_clamp_band;
@@ -65,7 +66,22 @@ module bar_clamp(d, h, w, switch = false, yaxis = false) {
         translate([0, rail_offset, 0]) {
             union() {
                 difference() {
-                    translate([0,-length/2,0]) rotate([90,0,90]) linear_extrude(height = w, center = true, convexity = 6) {
+                    translate([0,-length/2,0]) rotate([90,0,90]) 
+union() {
+
+for (side=[-1,1]) rotate([-90,0,0]) 
+    rotate([0,0,90-side*90])
+	translate([stem/2-eta,-w/2,tab_height-eta]) 
+	{
+      difference() {
+        cube([clamp_tab_fillet,w,clamp_tab_fillet]);
+		translate([clamp_tab_fillet,-eta,clamp_tab_fillet])
+		rotate([-90,0,0]) 
+			cylinder(r=clamp_tab_fillet,h=w+2*eta);
+      }
+    }
+
+linear_extrude(height = w, center = true, convexity = 6) {
                         difference() {
                             union() {
                                 translate([0, tab_height / 2, 0])
@@ -86,6 +102,8 @@ module bar_clamp(d, h, w, switch = false, yaxis = false) {
 
                             }
                         }
+}
+
                     //
                     // plastic saving cavity
                     //

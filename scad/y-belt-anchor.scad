@@ -10,7 +10,7 @@
 include <conf/config.scad>
 include <positions.scad>
 
-wall = default_wall; // 2;
+wall = 3;
 
 clearance = 3;
 thickness = M3_nut_trap_depth + bearing_clamp_tab_height;

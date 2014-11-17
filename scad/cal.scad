@@ -16,9 +16,9 @@ module cal_stl() {
             cube([40,10,6]);
             cube([25,25,10]);
             translate([10, 10])
-                cylinder(r = 10, h = 15);
+                cylinder(r = 11, h = 15);
         }
-        translate([10,10,15])
+        translate([10,10,20])
             nut_trap(Z_screw_dia / 2, Z_nut_radius, Z_nut_depth);
 
         translate([5,30,5])

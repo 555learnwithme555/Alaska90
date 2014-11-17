@@ -14,6 +14,8 @@ use <bar-clamp.scad>
 
 nutty = cnc_sheets;
 
+bearing_tab_fillet=3;
+
 slot = nutty ? 0 : 2;
 tab_length = bearing_clamp_tab + slot;
 
@@ -21,6 +23,16 @@ function bearing_mount_width(bearing)  = bearing_holder_width(bearing) + 2 * tab
 function bearing_mount_length(bearing) = bearing_holder_length(bearing);
 
 module tab() {
+union() {
+	translate([-eta,-bearing_clamp_tab/2,bearing_clamp_tab_height-eta]) {
+      difference() {
+        cube([bearing_tab_fillet,bearing_clamp_tab,bearing_tab_fillet]);
+		translate([bearing_tab_fillet,-eta,bearing_tab_fillet])
+		rotate([-90,0,0]) 
+			cylinder(r=bearing_tab_fillet,h=bearing_clamp_tab+2*eta);
+      }
+    }
+
     linear_extrude(height = bearing_clamp_tab_height + (nutty ? nut_trap_depth(nut) : 0), center = false, convexity = 6)
         difference() {
             union() {
@@ -38,6 +50,7 @@ module tab() {
                     square([slot, screw_clearance_radius * 2], center = true);
             }
         }
+}
 }
 
 nut_offset = nutty ? -bearing_clamp_tab / 2 + nut_radius(nut) + 0.5 : 0;

@@ -15,9 +15,9 @@ wall = 3.5;                            // wall thickness
 end_wall = 3.8;
 clearance = 0.2;                       // end clearance
 relief = 0.5;                          // clearance in the middle to stop the bearing rocking
-ziptie_clearance = 1;
+ziptie_clearance = 0.7;
 
-ziptie = small_ziptie;
+ziptie = black_ziptie;
 
 zipslot_width    = ziptie_width(ziptie) + ziptie_clearance;
 zipslot_tickness = ziptie_thickness(ziptie) + ziptie_clearance;
@@ -61,7 +61,7 @@ module bearing_holder(bearing, bar_height, populate = false, rad = 0) {
                 cylinder(h = length + 1, r = bearing_dia / 2, center=true);         // Bearing Cutout
                 cylinder(h = length / 2, r = bearing_dia / 2 + relief, center=true);// releave the center so does not rock
                
-               translate([0,zipslot_tickness,0]) {
+               translate([0,zipslot_tickness*0.5,0]) {
                 tube(h = zipslot_width, ir = bearing_dia / 2 + wall,
                                         or = bearing_dia / 2 + wall + zipslot_tickness, fn=64); // ziptie slot
                }
