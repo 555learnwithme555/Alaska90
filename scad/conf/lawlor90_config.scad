@@ -17,7 +17,7 @@ X_motor = NEMA17;
 Y_motor = NEMA17;
 Z_motor = NEMA17;
 
-hot_end = JHeadMk5; // an eBay copy, at least!
+hot_end = JHeadMk5clone; // an eBay copy, at least!
 
 X_travel = 605; // 24"
 Y_travel = 590; // 24" (trimmed to get total base length below 48")

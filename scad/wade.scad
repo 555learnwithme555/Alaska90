@@ -14,11 +14,11 @@ use <vitamins/stoffel_hot_end.scad>
 use <vitamins/jhead_hot_end.scad>
 
 spring = false;             // use two nuts or one nut and a spring
+exploded=true;
 
-module b608(h = 7) {
-    cylinder(r = 11.01, h = h);
+module b608(h = 7,clearance=0) {
+    cylinder(r = 11.01+clearance, h = h);
 }
-
 
 screw_depth = 5;
 
@@ -35,7 +35,7 @@ width = 26;
 height = 52;
 mount_pitch = 25;
 
-filament_x = 75;
+filament_x = 74.75;
 filament_z = 13;
 
 extension = max(0, nozzle_length - hot_end_length(hot_end));
@@ -55,6 +55,7 @@ pscrew_z = [filament_z - 6.5, filament_z + 6.5];
 
 driven_x = 70;
 driven_y = 31.5;
+filament_hole_diameter=2.8;
 
 bearing_housing_depth = 24 + 2 * filament_width;
 bearing_housing_x = 57;
@@ -131,7 +132,7 @@ module wades_block_stl() {
 
         translate([filament_x, 20, filament_z])
             rotate([90,0,0])
-                teardrop(h = 70, r=4/2, center=true);                       // filament
+                teardrop(h = 70, r=filament_hole_diameter/2, center=true);                       // filament
 
         // mounting holes
         for(side = [-1, 1])
@@ -204,7 +205,7 @@ module wades_block_stl() {
         // Sockets for bearings
         //
         translate([driven_x,       driven_y, width - 7])       b608(8);                // top bearing socket
-        translate([filament_x + 8, driven_y, filament_z - 4])  b608(8);                // clearance for idler
+        translate([filament_x + 10, driven_y, filament_z - 4])  b608(8,0.5);                // clearance for idler
         translate([driven_x,       driven_y, -1 + eta])        b608(8);                // bottom bearing socket
 
         //
@@ -471,6 +472,7 @@ module wades_assembly(show_connector = true, show_drive = true) {
     //
     // Hot end
     //
+/*
     assembly("hot_end_assembly");
     translate([filament_x, -extension, filament_z])
         rotate([-90, 0, 0]) {
@@ -483,6 +485,7 @@ module wades_assembly(show_connector = true, show_drive = true) {
        }
     end("hot_end_assembly");
 
+*/
     if(!hot_end_groove_mount(hot_end))
         for(side = [-1, 1])
             translate([filament_x + hot_end_screw_pitch(hot_end) * side, screw_depth - extension, width])
