@@ -24,7 +24,7 @@ top_thickness = 3;
 rim_thickness = 8;
 nut_trap_thickness = 8;
 corner_radius = 5;
-wall = 2; //2.8;
+wall = 3; //2.8;
 
 base_offset = nozzle_x_offset();      // offset of base from centre
 bar_offset = ceil(max(X_bearings[2] / 2 + rim_thickness + 1,                     // offset of carriage origin from bar centres
@@ -455,8 +455,9 @@ module x_carriage_fan_bracket_stl() {
     }
 }
 
-bearing_gap = 5;
-bearing_slit = 1;
+// This crap leaves space around the bearings.  Why would you want that?
+bearing_gap = -1; // was 5, but why?
+bearing_slit = -1;
 
 hole_width = hole - wall - bearing_slit;
 hole_offset = (hole - hole_width) / 2;
@@ -483,9 +484,14 @@ module base_shape() {
             translate([ length / 2 - corner_radius , extruder_width / 2])
                 circle(r = corner_radius, center = true);
         }
-        translate([0, width / 2 - (bearing_holder_width(X_bearings) + bearing_slit) / 2 + eta])
-            square([bearing_holder_length(X_bearings) + 2 * bearing_gap,
-                     bearing_holder_width(X_bearings) + bearing_slit ], center = true);
+
+// Cut square holes in baseplate for bearing holders
+for (side=[-1,0,1]) 
+  union()
+        translate([side*(bar_x  ), 
+				(1-2*abs(side))*(width / 2 - (bearing_holder_width(X_bearings) ) / 2) ])
+            square([bearing_holder_length(X_bearings) + 2 * bearing_gap-8*eta,
+                     bearing_holder_width(X_bearings) + 2 * bearing_slit-8*eta ], center = true);
     }
 }
 
@@ -542,8 +548,8 @@ module x_carriage_stl(){
 
                          }
                         //Holes for bearing holders
-                        translate([0,        bar_y, rim_thickness - top_thickness - eta])
-                            cube([bearing_holder_length(X_bearings) - 2 * eta, bearing_holder_width(X_bearings) - 2 * eta, rim_thickness * 2], center = true);
+                       // translate([0,        bar_y, rim_thickness - top_thickness - eta])
+                       //     cube([bearing_holder_length(X_bearings) - 2 * eta, bearing_holder_width(X_bearings) - 2 * eta, rim_thickness * 2], center = true);
 
                         translate([- bar_x, -bar_y, rim_thickness - top_thickness - eta])
                             cube([bearing_holder_length(X_bearings) - 2 * eta, bearing_holder_width(X_bearings) - 2 * eta, rim_thickness * 2], center = true);
@@ -675,7 +681,7 @@ module x_carriage_assembly(show_extruder = true, show_fan = true) {
     }
     for(end = [-1,1])
         translate([base_offset + bar_x * end, -bar_y, bar_offset]) {
-            linear_bearing(X_bearings);
+           // linear_bearing(X_bearings);
             rotate([90,-90,90])
                 scale([bearing_radius(X_bearings) / bearing_ziptie_radius(X_bearings), 1])
                     ziptie(small_ziptie, bearing_ziptie_radius(X_bearings));
