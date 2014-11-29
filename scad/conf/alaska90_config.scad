@@ -7,7 +7,7 @@
 //
 // Configuration file
 //
-echo("Lawlor90:");
+echo("Alaska90:");
 
 Z_bearings = LM16UU; // 16mm == 5/8" foosball shaft, and same diameter as 30x40T CNC cutter
 Y_bearings = LM16UU;
