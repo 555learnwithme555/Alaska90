@@ -8,8 +8,8 @@ Main features:
 * Support rods are moved inward, to gauss points, to better support the 24 inch x 24 inch bed.
 
 
-![3D rendering of Alaska90 3D printer](blob/master/alaska90_fullview.png)
-![Photograph of Alaska90 3D printer](blob/master/alaska90_photo.jpg)
+![3D rendering of Alaska90 3D printer](alaska90_fullview.png)
+![Photograph of Alaska90 3D printer](alaska90_photo.jpg)
 
 
 This is an open source hardware design that started from Chris Palmer/nophead's amazing parametric CAD printer generator system Mendel90, with a number of changes by Dr. Orion Lawlor to accomodate the much larger machine.  This version is definitely "beta" quality, with several crude hacks in the OpenSCAD to make the STL parts work at the larger size.  Also, I laid out the frame holes by hand because I couldn't find a router big enough to cut the full 4ft x 3ft sheet, so the DXFs are likely to be somewhat inaccurate.
@@ -26,7 +26,7 @@ There are a number of challenges in scaling up a 3D printer this big:
 
 # Parts and suppliers
 
-The original Mendel90 has a spectacularly detailed Bill-of-Materials (BOM) system that keeps track of every part needed, down to the last bolt and nut.  I tried to keep this updated--see alaska90/bom/bom.txt--but I probably didn't get it quite perfect, since much of the design was adapted on the fly.
+The original Mendel90 has a spectacularly detailed Bill-of-Materials (BOM) system that keeps track of every part needed, down to the last bolt and nut.  I tried to keep this updated--see [alaska90/bom/bom.txt](alaska90/bom/bom.txt)--but I probably didn't get it quite perfect, since much of the design was adapted on the fly.
 
 
 ## Mechanical parts & suppliers
