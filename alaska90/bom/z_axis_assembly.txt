@@ -1,0 +1,19 @@
+z_axis_assembly:
+Vitamins:
+  6 1/4in hex screw x 25mm
+  2 Brass nut M8
+  2 Nyloc nut M6.4
+  2 Smooth rod 16mm x 759mm
+  2 Threaded rod M9.5 x 711mm
+  6 Washer M8 x 17mm x 1.6mm
+  4 Star washer M8 x 1.6mm
+
+Printed:
+  2 z_bar_clamp.stl
+  2 z_screw_pointer.stl
+
+Sub-assemblies:
+  1 x_idler_assembly
+  1 x_motor_assembly
+  1 z_limit_switch_assembly
+  2 z_motor_assemblies

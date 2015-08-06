@@ -1,0 +1,17 @@
+frame_assembly:
+Vitamins:
+ 39 1/4in hex screw x 25mm
+  2 MDF sheet 532mm x 809mm x 19.5mm
+  1 MDF sheet 916mm x 1213mm x 19.5mm
+  1 MDF sheet 916mm x 809mm x 19.5mm
+ 39 Washer M8 x 17mm x 1.6mm
+ 39 Star washer M8 x 1.6mm
+
+Printed:
+  2 cable_clip_AB.stl
+  2 cable_clip_AD.stl
+  1 cable_clip_CA.stl
+ 10 fixing_block.stl
+  1 ribbon_clamp_20_66.stl
+  1 ribbon_clamp_26_66.stl
+

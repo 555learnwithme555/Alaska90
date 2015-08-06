@@ -1,0 +1,22 @@
+y_carriage_assembly:
+Vitamins:
+  8 M3 cap screw x 16mm
+  6 1/4in hex screw x 16mm
+  2 1/4in hex screw x 20mm
+  3 LM16UU linear bearing
+  1 MDF sheet 618mm x 618mm x 10mm
+  8 Nyloc nut M3
+  8 Nyloc nut M6.4
+  8 Washer M3 x 7mm x 0.5mm
+ 14 Washer M8 x 17mm x 1.6mm
+  3 Ziptie 140mm min length
+
+Printed:
+  1 ribbon_clamp_26_66.stl
+  1 ribbon_clamp_26_66N.stl
+  3 y_bearing_mount.stl
+  1 y_belt_anchor.stl
+  1 y_belt_anchor_toothed.stl
+  1 y_belt_clip.stl
+  1 y_belt_clip_toothed.stl
+

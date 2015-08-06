@@ -1,0 +1,23 @@
+psu_assembly:
+Vitamins:
+  1 THS15 Aluminium clad resistor 10R
+  1 THS15 Aluminium clad resistor 4R7
+  1 PSU e.g. ALPINE500
+  1 IEC mains lead
+  4 1/4in hex screw x 25mm
+  2 6-32 pan screw x 9.5mm
+  4 No2 pan wood screw x 13mm
+  1 Heatshrink sleeving ID 10mm x 15mm
+  3 Heatshrink sleeving ID 2.4mm x 15mm
+  5 Heatshrink sleeving ID 3.2mm x 15mm
+  2 Heatshrink sleeving ID 6.4mm x 15mm
+  2 Washer M4 x 9mm x 0.8mm
+  4 Washer M8 x 17mm x 1.6mm
+  2 Star washer M4 x 0.8mm
+  4 Star washer M8 x 1.6mm
+  2 Ziptie 100mm min length
+
+Printed:
+  1 atx_long_bracket.stl
+  1 atx_short_bracket.stl
+
