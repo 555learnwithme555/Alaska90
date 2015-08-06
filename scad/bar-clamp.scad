@@ -242,6 +242,10 @@ module bar_clamps_stl() {
     translate([-10, y2, 0])                                                              rotate([0, 0, 180]) y_bar_clamp_switch_stl();
     translate([12, y2 -2 * bar_rail_offset(Y_bar_dia) + bar_clamp_length(Y_bar_dia), 0])                     y_bar_clamp_stl();
 
+// This "middle clamp" on the Y axis reduces deflection of the longest bar, but cuts travel in Y axis.  Your call.
+//   It also screws up the positions of the other holes; I cheated and layed these out by hand on the base plate.  (OSL 2015-08)
+    translate([0, (y2+y3)*0.5, 0])                                                       rotate([0, 0, 180]) y_bar_clamp_stl();
+
     translate([0, y3, 0])                                                                rotate([0, 0, 180]) y_bar_clamp_stl();
     translate([2, y3 -2 * bar_rail_offset(Y_bar_dia) + bar_clamp_length(Y_bar_dia), 0])                      y_bar_clamp_stl();
 }
