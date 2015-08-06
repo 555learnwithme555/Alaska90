@@ -1,3 +1,4 @@
+# Alaska90 3D printer design
 This is the Alaska90, an enormous 3D printer.  It's not a tabletop machine--it's the size of a table!
 
 Main features:
@@ -5,9 +6,22 @@ Main features:
 * Frame is built from 3/4 inch plywood, and parts are secured using large 1/4 inch hex head bolts (instead of M4 screws).
 * Uses heavy 16mm steel rods, so it's rigid enough to mill wood with a small dremel tool.
 * Support rods are moved inward, to gauss points, to better support the 24 inch x 24 inch bed.
-# Alaska90 3D printer design
+
+
+![3D rendering of Alaska90 3D printer](blob/master/alaska90_fullview.png)
+![Photograph of Alaska90 3D printer](blob/master/alaska90_photo.jpg)
+
 
 This is an open source hardware design that started from Chris Palmer/nophead's amazing parametric CAD printer generator system Mendel90, with a number of changes by Dr. Orion Lawlor to accomodate the much larger machine.  This version is definitely "beta" quality, with several crude hacks in the OpenSCAD to make the STL parts work at the larger size.  Also, I laid out the frame holes by hand because I couldn't find a router big enough to cut the full 4ft x 3ft sheet, so the DXFs are likely to be somewhat inaccurate.
+
+
+
+# Making giant 3D prints
+
+There are a number of challenges in scaling up a 3D printer this big:
+
+* Time per print.  At a fixed layer height, if you double the size of the object, the number of layers doubles, the time per perimeter doubles, and the time per infill quadruples.  This means the total time per print scales up quadratically even for completely hollow objects, and time is cubic for filled objects.  One workaround is to use large layer height, above 0.3mm, to reduce the number of layers.  You can also try to push the printer to deposit material faster by using a larger nozzle hole size, currently 0.5mm.
+* Curl.  Without a heated bed and build chamber, a PLA object over a foot across will curl up off the build platform.
 
 
 # Parts and suppliers
