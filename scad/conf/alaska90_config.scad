@@ -37,6 +37,8 @@ frame = MDF18;
 frame_corners = 0;
 frame_nuts = false;
 
+pulley_type = T5x8_plastic_pulley;
+
 case_fan = fan80x38;
 psu = ALPINE500;
 //psu = KY240W;
