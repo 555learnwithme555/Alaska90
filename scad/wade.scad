@@ -14,7 +14,7 @@ use <vitamins/stoffel_hot_end.scad>
 use <vitamins/jhead_hot_end.scad>
 
 spring = false;             // use two nuts or one nut and a spring
-exploded=true;
+// exploded=true;
 
 module b608(h = 7,clearance=0) {
     cylinder(r = 11.01+clearance, h = h);

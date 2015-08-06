@@ -1,1 +1,1 @@
-include <lawlor90_config.scad>
+include <alaska90_config.scad>
