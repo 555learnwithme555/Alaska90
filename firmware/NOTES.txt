@@ -1,0 +1,53 @@
+
+
+Sanguino (open source, ATmega 644P)
+-> Sanguilino (includes steppers)
+-> Melzi ("Joe Mosfet", ATmega 1284P, like Leonardo)
+-> Melzi 2.0 (RepRapPro)
+
+This is basically an Arduino Leonardo (ATMEGA1284P), with four A4988 stepper drivers (2A, 35V rated), and three RFP30N06LE MOSFETs (30A, 60V rated).  You use the Marlin/Sanguino firmware.
+	http://reprap.org/wiki/Melzi
+
+Must copy the Marlin_official/ArduinoAddons/Arduino_1.x.x/hardware/Sanguino directory into the arduino IDE/hardware folder (as of 1.0.5) for the Sanguino boards to show up.  Pick board "Sanguino W/ ATmega 1284p 16(?)MHz".
+This only seems to work with the 1.0.5 IDE, not 1.6.x.
+	
+
+To edit the Melzi firmware, you need to install the AUTO-RESET jumper on the right side of the board.
+
+
+
+
+http://www.youtube.com/watch?v=PQ807R1Nsio
+Quint Boney uses Repetier Firmware on Melzi 2.0 electronics.
+But Repetier sucks, with no acceleration/deceleration, like Marlin has.
+
+
+------------- Marlin --------------
+Default baudrate is 250000.  Dropping to 115200.
+
+eBay J clone Thermistor:
+	57F -> 165 K ohms
+	72F -> 100 K ohms
+This crappy board's pull-up is 10Kohms, so I needed to manually adjust the table using the thermistor.xls spreadsheet.  I have no idea how close it is when hot, but it's pretty close when cold.  Using a 1K pull-up would be better, since the hot end 
+
+Heater resistor: 12ohms, so about 12 watts at 12VDC.
+
+
+The normal Arduino IDE flashes the firmware fine, although it takes a scary length of time to flash, and the LED no longer blinks.
+
+pronterface takes an amazing 8 seconds to connect.
+Using a 1K resistor as a fake thermistor results in a temperature reading of 198.4/5 C in Pronterface.  It should actually be 172.5 C, according to my thermistor table.  I need to meter the "10K" pullup to see what it really reads.  Turns out, it's like 9.8Kohms, but the problem was selecting the right table in Configuration.h.  With the right table, we're at 173.9/174.2, which is perfect.
+
+Z speed: seems capped at 300mm/min (pretty slow!).  Fixed in firmware DEFAULT_MAX_FEEDRATE.
+
+At acceleration of 100:
+Up to 460mm/min works OK.
+Z loses steps going up at 500, 600, or 700 mm/min.
+
+At acceleration of 20, acceleration process is audible.  Steps still lost at 560 (only going up, and only now and then), and more definitely at 660.
+
+Capping Z speed to 7 mm/sec, 460mm/min.  That's still over 1 minute for a full Z seek, but OK.
+
+
+
+
