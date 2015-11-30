@@ -23,7 +23,7 @@
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
 #define STRING_VERSION_CONFIG_H __DATE__ " " __TIME__ // build date and time
-#define STRING_CONFIG_H_AUTHOR "(Dr. Orion Lawlor, 2015-08-02)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Dr. Orion Lawlor, 2015-11-28)" // Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
 // This allows the connection of wireless adapters (for instance) to non-default port pins.
@@ -387,11 +387,11 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 // Travel limits after homing
 // #define X_MAX_POS 621  // full (no extruder)
-#define X_MAX_POS 450  // 600 is full travel
+#define X_MAX_POS 578  // 600 is full travel (minus fan)
 #define X_MIN_POS 0
-#define Y_MAX_POS 500  // 510 is full travel
+#define Y_MAX_POS 508  // 510 is full travel
 #define Y_MIN_POS 0
-#define Z_MAX_POS 500  // 620 is about full
+#define Z_MAX_POS 450  // 450 starts to hit spool; 620 is about full
 #define Z_MIN_POS 0
 
 #define X_MAX_LENGTH (X_MAX_POS - X_MIN_POS)
@@ -510,8 +510,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 // OSL see 
 //   My 3/8" threaded rod is 12 tpi = 2.1167 mm per revolution
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,200.0*16/2.1167,((200 * 16 * 39.0)/(11.0 * 7.4 * 3.142)) / 0.94}  // default steps per unit for Alaska90
-#define DEFAULT_MAX_FEEDRATE          {300, 300, 7, 25}    // (mm/sec), Z verified (loses steps any faster than this)
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80*8/12.0,80*8/12.0,200.0*16/2.1167,((200 * 16 * 39.0)/(11.0 * 7.4 * 3.142)) / 0.94}  // default steps per unit for Alaska90
+#define DEFAULT_MAX_FEEDRATE          {400, 400, 7, 25}    // (mm/sec), Z verified (loses steps any faster than this)
 #define DEFAULT_MAX_ACCELERATION      {9000,1000,100,5000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
