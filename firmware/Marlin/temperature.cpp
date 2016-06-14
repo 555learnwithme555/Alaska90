@@ -310,7 +310,7 @@ void PID_autotune(float temp, int extruder, int ncycles)
 
       temp_millis = millis();
     }
-    if(((millis() - t1) + (millis() - t2)) > (10L*60L*1000L*2L)) {
+    if(((millis() - t1) + (millis() - t2)) > (60L*60L*1000L*2L)) {
       SERIAL_PROTOCOLLNPGM("PID Autotune failed! timeout");
       return;
     }
