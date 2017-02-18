@@ -23,7 +23,7 @@
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
 #define STRING_VERSION_CONFIG_H __DATE__ " " __TIME__ // build date and time
-#define STRING_CONFIG_H_AUTHOR "(Dr. Orion Lawlor, 2015-12-14)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Dr. Orion Lawlor, 2016-10-30)" // Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
 // This allows the connection of wireless adapters (for instance) to non-default port pins.
@@ -169,9 +169,9 @@
 // When temperature exceeds max temp, your heater will be switched off.
 // This feature exists to protect your hotend from overheating accidentally, but *NOT* from thermistor short/failure!
 // You should use MINTEMP for thermistor short/failure protection.
-#define HEATER_0_MAXTEMP 250
-#define HEATER_1_MAXTEMP 250
-#define HEATER_2_MAXTEMP 250
+#define HEATER_0_MAXTEMP 254
+#define HEATER_1_MAXTEMP 254
+#define HEATER_2_MAXTEMP 254
 #define BED_MAXTEMP 120
 
 // If your bed has low resistance e.g. .6 ohm and throws the fuse you can duty cycle it to reduce the
@@ -201,9 +201,17 @@
 
 
 // eBay J-head hotend, retuned 2015-08-04 by Dr. Lawlor
+/*
+// Tuned to 12V operation:
     #define  DEFAULT_Kp 30.67
     #define  DEFAULT_Ki 1.94
     #define  DEFAULT_Kd 121.23
+*/
+
+// Tuned to 20V operation.  I need to change PID_dT too, it's too jumpy here.
+    #define  DEFAULT_Kp 10.2
+    #define  DEFAULT_Ki 0.63
+    #define  DEFAULT_Kd 40
 
 // eBay J-head hotend, tuned for BAD gray cable 2015-08-04 by Dr. Lawlor
 //    #define  DEFAULT_Kp 77.52
@@ -532,7 +540,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 // #define EXTRUDER_OFFSET_Y {0.0, 5.00}  // (in mm) for each extruder, offset of the hotend on the Y axis
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
-#define DEFAULT_XYJERK                2.0    // (mm/sec)
+#define DEFAULT_XYJERK                4.0    // (mm/sec)
 #define DEFAULT_ZJERK                 0.4     // (mm/sec)
 #define DEFAULT_EJERK                 3.0    // (mm/sec)
 
