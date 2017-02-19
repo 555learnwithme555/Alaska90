@@ -637,7 +637,7 @@ pins
 #define DIO29_DDR		DDRA
 #define DIO29_PWM		NULL
 
-#define DIO30_PIN		PINA1
+#define DIO30_PIN		PINA1 // Pin A1 as digital output: pin "30"
 #define DIO30_RPORT	PINA
 #define DIO30_WPORT	PORTA
 #define DIO30_DDR		DDRA

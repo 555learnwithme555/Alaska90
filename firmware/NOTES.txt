@@ -1,5 +1,9 @@
+Flashing Alaska90 firmware to Melzi 2.0 board:
+	- Use Arduino IDE 1.0.5:  ~/dev/hardware/arduino/ide/old/arduino-1.0.5/arduino
 
 
+
+---------- The Hardware ---------
 Sanguino (open source, ATmega 644P)
 -> Sanguilino (includes steppers)
 -> Melzi ("Joe Mosfet", ATmega 1284P, like Leonardo)
@@ -47,6 +51,30 @@ Z loses steps going up at 500, 600, or 700 mm/min.
 At acceleration of 20, acceleration process is audible.  Steps still lost at 560 (only going up, and only now and then), and more definitely at 660.
 
 Capping Z speed to 7 mm/sec, 460mm/min.  That's still over 1 minute for a full Z seek, but OK.
+
+
+
+
+-------
+To tune hotend:
+
+M303 E0 S200 C4
+
+
+
+
+---------------
+I'd like to set up a sub-Melzi to drive the sandstruder.
+
+I'm tempted to just tie across pin A1 from the mainmelzi to the submelzi.
+Main would have it as the E1 step pin; sub would forward it to E0.
+(sandstruder doesn't really do retract.)
+
+
+~/dev/hardware/arduino/ide/old/arduino-1.0.5/arduino subMelzi/subMelzi.ino
+
+The Melzi board bootloader(?) really does take 8 seconds to boot.  That's annoying.
+
 
 
 

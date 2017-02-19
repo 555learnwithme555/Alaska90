@@ -1239,8 +1239,13 @@
 #define KILL_PIN           -1
 
 #define HEATER_0_PIN       13 // (extruder)
-#define HEATER_1_PIN       -1
+#define HEATER_1_PIN       8 // TOTALLY MADE-UP "heater" 1
 #define HEATER_2_PIN       -1
+
+// Sub-melzi extruder 1:
+#define E1_STEP_PIN      30 // pin analog A1 (fake fastio.h pin numbers)
+#define E1_DIR_PIN       29 // pin analog A2 
+#define E1_ENABLE_PIN      -1
 
 #ifdef SANGUINOLOLU_V_1_2
 
@@ -1265,7 +1270,7 @@
 #endif
 
 #define TEMP_0_PIN          7   // MUST USE ANALOG INPUT NUMBERING NOT DIGITAL OUTPUT NUMBERING!!!!!!!!! (pin 33 extruder)
-#define TEMP_1_PIN         -1
+#define TEMP_1_PIN          7 // <- hacky way to fake temperature
 #define TEMP_2_PIN         -1
 #define TEMP_BED_PIN        6   // MUST USE ANALOG INPUT NUMBERING NOT DIGITAL OUTPUT NUMBERING!!!!!!!!! (pin 34 bed)
 #define SDPOWER            -1
