@@ -43,13 +43,23 @@ Dr. Orion Lawlor, lawlor@alaska.edu, 2017-02-13 (public domain)
 #define SDSS               31
 
 
-#define HAMMER_PIN FAN_PIN
+// I/O for sandstruder stepper
+#define STRUDER_IN_PIN A1
+#define STRUDER_ENABLE_PIN E0_ENABLE_PIN
+#define STRUDER_STEP_PIN E0_STEP_PIN
+#define STRUDER_DIR_PIN E0_DIR_PIN
+
+// I/O for solenoid tamper:
+#define TAMPER_IN_PIN A2
+#define TAMPER_OUT_PIN FAN_PIN
 
 
 
 long last_millis=-10000; // main control loop counter
 long last_step_time=-10000; // time we last saw a stepper command
 int last_step_val=1;
+long last_tamp_time=-10000; // time we last saw a tamper command
+int last_tamp_val=1;
 
 void setup(void) {
   Serial.begin(115200);
@@ -63,52 +73,72 @@ void setup(void) {
   pinMode(HEATER_BED_PIN,OUTPUT); digitalWrite(HEATER_BED_PIN,0);
   
   // Turn on extruder stepper driver
-  pinMode(E0_ENABLE_PIN,OUTPUT); digitalWrite(E0_ENABLE_PIN,ENABLE_OFF); // steppers off until commanded
-  pinMode(E0_DIR_PIN,OUTPUT); digitalWrite(E0_DIR_PIN,1); // doublecheck direction
-  pinMode(E0_STEP_PIN,OUTPUT);
+  pinMode(STRUDER_ENABLE_PIN,OUTPUT); digitalWrite(STRUDER_ENABLE_PIN,ENABLE_OFF); // steppers off until commanded
+  pinMode(STRUDER_DIR_PIN,OUTPUT); digitalWrite(STRUDER_DIR_PIN,1); // doublecheck direction
+  pinMode(STRUDER_STEP_PIN,OUTPUT);
   
   // Hammer solenoid output
-  pinMode(HAMMER_PIN,OUTPUT); digitalWrite(HAMMER_PIN,0);
+  pinMode(TAMPER_OUT_PIN,OUTPUT); digitalWrite(TAMPER_OUT_PIN,0);
   
   // Input from main Melzi (and pullup to avoid noise)
-  pinMode(A1,INPUT_PULLUP);
+  pinMode(STRUDER_IN_PIN,INPUT_PULLUP);
+  pinMode(TAMPER_IN_PIN,INPUT_PULLUP);
 }
 
-  long iter=0;
 void loop(void) {
+  unsigned int n_iter=0, n_step=0, n_tamp=0;
   long cur; // current time, in milliseconds (ish, skips every 43ms)
   while (last_millis==(cur=millis())) 
   { // forward stepper commands here: this loop runs at about 130kHz
-    int step=digitalRead(A1);
+    n_iter++;
+    int step=digitalRead(STRUDER_IN_PIN);
     if (last_step_val!=step) 
     { // stepper moved
-      last_step_time=cur;
+      n_step++;
       last_step_val=step;
-      digitalWrite(E0_ENABLE_PIN,ENABLE_ON); // steppers on
-      digitalWrite(E0_STEP_PIN,step); // forward the step command
-      iter++;
+      digitalWrite(STRUDER_ENABLE_PIN,ENABLE_ON); // steppers on
+      digitalWrite(STRUDER_STEP_PIN,step); // forward the step command
+    }
+    int tamp=digitalRead(TAMPER_IN_PIN);
+    if (last_tamp_val!=tamp)
+    { // tamper moved
+      n_tamp++;
+      last_tamp_val=tamp;
     }
   }
   last_millis=cur;
   
-  // Hammer logic (every 1ms is plenty)
-  bool hammertime=0;
-  if (cur-last_step_time<100) 
-  { // run tamping hammer
-    hammertime=1;
-    int hammer=(cur%60<40); // smack period and duty cycle
-    digitalWrite(FAN_PIN,hammer);
-    digitalWrite(LED_PIN,hammer); // fast blink to indicate tamping active
-  } else { // now stop
-    digitalWrite(FAN_PIN,0); // hammer off
-    digitalWrite(E0_ENABLE_PIN,ENABLE_OFF); // stepper off
+  if (n_tamp>2) last_tamp_time=cur; // ignore short tamper blips?
+  if (n_step>0) last_step_time=cur;
+
+  // Stepper enable logic
+  if (cur-last_step_time<10)
+  {
+    // digitalWrite(LED_PIN,1); // solid on to indicate stepper active
+  } else { // stop
+    digitalWrite(STRUDER_ENABLE_PIN,ENABLE_OFF); // stepper off (avoid heating)
+  // HACK: only tamp if stepper is disabled.  
+  //  needed because some Marlin bug randomly whacks the hammer while printing.
+
+    // Tamp logic (every 1ms is plenty)
+    bool hammertime=0;
+    if (cur-last_tamp_time<10) 
+    { // run tamping hammer
+      hammertime=1;
+      int period=64; // tamping cycle time in ms
+      int on_time=7; // duty cycle: ms of on time during each cycle. 6 is min at 20v bus.
+      int tamper=(cur%period <= on_time); // timing based
+      digitalWrite(TAMPER_OUT_PIN,tamper);
+      digitalWrite(LED_PIN,tamper); // fast blink to indicate tamping active
+    } else { // now stop
+      digitalWrite(TAMPER_OUT_PIN,0); // tamper off
+    }
   }
   
   // Debug printouts: kHz rate, minus if tamping.
   if (cur%512==0) {
-    if (hammertime) iter=-iter;
-    Serial.println(iter);
-    iter=0;
+    // if (hammertime) iter=-iter;
+    Serial.println(n_iter);
   }
   
   // Alive indicator blinking.

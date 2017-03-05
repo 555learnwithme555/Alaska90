@@ -76,6 +76,22 @@ Main would have it as the E1 step pin; sub would forward it to E0.
 The Melzi board bootloader(?) really does take 8 seconds to boot.  That's annoying.
 
 
+-----------------
+Two extruders is surprisingly easy to set up, and it works well.
+Three extruders, E2 randomly dribbles whenever E1 is stepping.
+Is this because "DIR" pins overlap for T1 and T2 somehow?
+
+
+Trying to separate the T1 and T2 pins by more distance:
+// Sub-melzi extruder 1: sandstruder
+#define E1_STEP_PIN      30 // pin analog A1 (fake fastio.h pin numbers)
+#define E1_DIR_PIN       29 // pin analog A2
+#define E1_ENABLE_PIN      -1
+
+// Sub-melzi extruder 2: tamper
+#define E2_STEP_PIN      27 // pin analog A4
+#define E2_DIR_PIN       28 // pin analog A3
+#define E2_ENABLE_PIN      -1
 
 
 

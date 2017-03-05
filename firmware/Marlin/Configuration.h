@@ -93,7 +93,8 @@
 // #define MACHINE_UUID "00000000-0000-0000-0000-000000000000"
 
 // This defines the number of extruders
-#define EXTRUDERS 2
+//   Alaska90: t0: plastic hotend.  t1: sandstruder.  t2: tamper.
+#define EXTRUDERS 3
 
 //// The following define selects which power supply you have. Please choose the one that matches your setup
 // 1 = ATX
@@ -526,9 +527,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 // OSL see 
 //   My 3/8" threaded rod is 12 tpi = 2.1167 mm per revolution
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80*8/12.0,80*8/12.0,200.0*16/2.1167,((200 * 16 * 39.0)/(11.0 * 7.4 * 3.142)) / 0.94, 600}  // default steps per unit for Alaska90
-#define DEFAULT_MAX_FEEDRATE          {250, 250, 7, 25, 100}    // (mm/sec), Z verified (loses steps any faster than this)
-#define DEFAULT_MAX_ACCELERATION      {6000,400,100,5000,5000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80*8/12.0,80*8/12.0,200.0*16/2.1167,((200 * 16 * 39.0)/(11.0 * 7.4 * 3.142)) / 0.94, 600, 600}  // default steps per unit for Alaska90
+#define DEFAULT_MAX_FEEDRATE          {250, 250, 7, 25, 200, 200}    // (mm/sec), Z verified (loses steps any faster than this)
+#define DEFAULT_MAX_ACCELERATION      {6000,400,100,5000,5000,5000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  3000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
@@ -537,8 +538,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
-#define EXTRUDER_OFFSET_X {0.0, 0.00} // (in mm) for each extruder, offset of the hotend on the X axis
-#define EXTRUDER_OFFSET_Y {0.0, -91.00}  // (in mm) for each extruder, offset of the hotend on the Y axis
+//                      {plastic, sand, tamper}
+#define EXTRUDER_OFFSET_X {0.0, -36.00, 0.0} // (in mm) for each extruder, offset of the hotend on the X axis
+#define EXTRUDER_OFFSET_Y {0.0, -87.00, -87.0}  // (in mm) for each extruder, offset of the hotend on the Y axis
 // FIXME find real as-built offset
 
 
