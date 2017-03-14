@@ -539,8 +539,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
 //                      {plastic, sand, tamper}
-#define EXTRUDER_OFFSET_X {0.0, -36.00, 0.0} // (in mm) for each extruder, offset of the hotend on the X axis
-#define EXTRUDER_OFFSET_Y {0.0, -87.00, -87.0}  // (in mm) for each extruder, offset of the hotend on the Y axis
+#define EXTRUDER_OFFSET_X {0.0, -34.00, 2.0} // (in mm) for each extruder, offset of the hotend on the X axis
+#define EXTRUDER_OFFSET_Y {0.0, -94.3, -89.3}  // (in mm) for each extruder, offset of the hotend on the Y axis
 // FIXME find real as-built offset
 
 
