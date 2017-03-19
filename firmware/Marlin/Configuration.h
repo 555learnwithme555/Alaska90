@@ -23,7 +23,7 @@
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
 #define STRING_VERSION_CONFIG_H __DATE__ " " __TIME__ // build date and time
-#define STRING_CONFIG_H_AUTHOR "(Dr. Orion Lawlor, 2017-02-17)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Dr. Orion Lawlor, 2017-03-16)" // Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
 // This allows the connection of wireless adapters (for instance) to non-default port pins.
@@ -528,8 +528,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 //   My 3/8" threaded rod is 12 tpi = 2.1167 mm per revolution
 
 #define DEFAULT_AXIS_STEPS_PER_UNIT   {80*8/12.0,80*8/12.0,200.0*16/2.1167,((200 * 16 * 39.0)/(11.0 * 7.4 * 3.142)) / 0.94, 600, 600}  // default steps per unit for Alaska90
-#define DEFAULT_MAX_FEEDRATE          {250, 250, 7, 25, 200, 200}    // (mm/sec), Z verified (loses steps any faster than this)
-#define DEFAULT_MAX_ACCELERATION      {6000,400,100,5000,5000,5000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_MAX_FEEDRATE          {1000, 1000, 8, 100, 200, 200}    // (mm/sec), conservative numbers
+#define DEFAULT_MAX_ACCELERATION      {3000,1000,100,5000,5000,5000}    // (mm/sec^2) start acceleration.   X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  3000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
@@ -545,7 +545,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
-#define DEFAULT_XYJERK                4.0    // (mm/sec)
+#define DEFAULT_XYJERK                3.0    // (mm/sec)
 #define DEFAULT_ZJERK                 0.4     // (mm/sec)
 #define DEFAULT_EJERK                 3.0    // (mm/sec)
 
