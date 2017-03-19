@@ -32,7 +32,6 @@ To edit the Melzi firmware, you need to install the AUTO-RESET jumper on the rig
 
 http://www.youtube.com/watch?v=PQ807R1Nsio
 Quint Boney uses Repetier Firmware on Melzi 2.0 electronics.
-But Repetier sucks, with no acceleration/deceleration, like Marlin has.
 
 
 ------------- Marlin --------------
