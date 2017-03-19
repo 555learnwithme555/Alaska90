@@ -2,8 +2,14 @@
 3D Printer Driver Firmware for Melzi board, used as a sub-Melzi
 driven by the main Melzi.
 
-Input: Pin A1 is stepper step line.
+Input: 
+  Pin A1 is sandstruder stepper step line.
+  Pin A2 is 
 
+Output:
+  Sandstruder stepper is wired to "E" extruder
+  Solenoid tamper is wired to headed bed FET
+  Sand shaker is wired to hotend FET
 
 Dr. Orion Lawlor, lawlor@alaska.edu, 2017-02-13 (public domain)
 */
@@ -28,7 +34,7 @@ Dr. Orion Lawlor, lawlor@alaska.edu, 2017-02-13 (public domain)
 
 #define FAN_PIN            4 
 
-#define HEATER_0_PIN       13 // extruder
+#define HEATER_0_PIN       13 // extruder heater
 
 #define HEATER_BED_PIN     10 // bed (change to 12 for breakout pin on header)
 #define X_ENABLE_PIN       14
@@ -38,8 +44,8 @@ Dr. Orion Lawlor, lawlor@alaska.edu, 2017-02-13 (public domain)
 #define ENABLE_OFF 1
 #define ENABLE_ON 0 /* active low, for some reason */
 
-#define TEMP_0_PIN          7   /* Analogue pin */
-#define TEMP_BED_PIN        6   /* Analogue pin */
+#define TEMP_0_PIN          7   /* Analog pin */
+#define TEMP_BED_PIN        6   /* Analog pin */
 #define SDSS               31
 
 
@@ -49,6 +55,9 @@ Dr. Orion Lawlor, lawlor@alaska.edu, 2017-02-13 (public domain)
 #define STRUDER_STEP_PIN E0_STEP_PIN
 #define STRUDER_DIR_PIN E0_DIR_PIN
 
+// I/O for sand shaker
+#define SHAKER_PIN HEATER_0_PIN
+
 // I/O for solenoid tamper:
 #define TAMPER_IN_PIN A2
 #define TAMPER_OUT_PIN FAN_PIN
@@ -56,8 +65,13 @@ Dr. Orion Lawlor, lawlor@alaska.edu, 2017-02-13 (public domain)
 
 
 long last_millis=-10000; // main control loop counter
+
 long last_step_time=-10000; // time we last saw a stepper command
 int last_step_val=1;
+
+long first_step_time=-1000; // time this stepper run started
+int stepper_running=0;
+
 long last_tamp_time=-10000; // time we last saw a tamper command
 int last_tamp_val=1;
 
@@ -71,6 +85,7 @@ void setup(void) {
   pinMode(Y_ENABLE_PIN,OUTPUT); digitalWrite(Y_ENABLE_PIN,ENABLE_OFF);
   pinMode(Z_ENABLE_PIN,OUTPUT); digitalWrite(Z_ENABLE_PIN,ENABLE_OFF);
   pinMode(HEATER_BED_PIN,OUTPUT); digitalWrite(HEATER_BED_PIN,0);
+  pinMode(HEATER_0_PIN,OUTPUT); digitalWrite(HEATER_0_PIN,0);
   
   // Turn on extruder stepper driver
   pinMode(STRUDER_ENABLE_PIN,OUTPUT); digitalWrite(STRUDER_ENABLE_PIN,ENABLE_OFF); // steppers off until commanded
@@ -79,6 +94,7 @@ void setup(void) {
   
   // Hammer solenoid output
   pinMode(TAMPER_OUT_PIN,OUTPUT); digitalWrite(TAMPER_OUT_PIN,0);
+  pinMode(SHAKER_PIN,OUTPUT); digitalWrite(SHAKER_PIN,0);
   
   // Input from main Melzi (and pullup to avoid noise)
   pinMode(STRUDER_IN_PIN,INPUT_PULLUP);
@@ -108,15 +124,30 @@ void loop(void) {
   }
   last_millis=cur;
   
-  if (n_tamp>2) last_tamp_time=cur; // ignore short tamper blips?
-  if (n_step>0) last_step_time=cur;
+  if (n_tamp>2) last_tamp_time=cur; // ignore short tamper blips
+  if (n_step>0) {
+    last_step_time=cur;
+    if (!stepper_running) {
+      stepper_running=1;
+      first_step_time=cur;
+    }
+  }
 
   // Stepper enable logic
   if (cur-last_step_time<10)
-  {
-    // digitalWrite(LED_PIN,1); // solid on to indicate stepper active
-  } else { // stop
+  { // stepper is active
+    if (((cur-first_step_time)%10000)<500) 
+    { // periodically run shaker gently, to redistribute sand
+      analogWrite(SHAKER_PIN,400);
+    } else {
+      digitalWrite(SHAKER_PIN,0);
+    }
+  } 
+  else 
+  { // stepper stopped
+    stepper_running=0;
     digitalWrite(STRUDER_ENABLE_PIN,ENABLE_OFF); // stepper off (avoid heating)
+    digitalWrite(SHAKER_PIN,0);
   // HACK: only tamp if stepper is disabled.  
   //  needed because some Marlin bug randomly whacks the hammer while printing.
 

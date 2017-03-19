@@ -1,5 +1,14 @@
-Flashing Alaska90 firmware to Melzi 2.0 board:
+Flashing Alaska90 firmware to Melzi 2.0 board works like a 
+"sanguino" arduino:
 	- Use Arduino IDE 1.0.5:  ~/dev/hardware/arduino/ide/old/arduino-1.0.5/arduino
+
+In 1.6.5, go to File -> Preferences -> Additional board manager URLs:
+  https://raw.githubusercontent.com/Lauszus/Sanguino/master/package_lauszus_sanguino_index.json
+Now go to Tools -> Boards -> Boards Manager. 
+Scroll to the bottom, and "Install" the Sanguino.
+
+Tools -> Boards -> Sanguino
+Tools -> Processors -> ATmega 1284 or 1284P 16MHz
 
 
 
@@ -92,6 +101,144 @@ Trying to separate the T1 and T2 pins by more distance:
 #define E2_STEP_PIN      27 // pin analog A4
 #define E2_DIR_PIN       28 // pin analog A3
 #define E2_ENABLE_PIN      -1
+
+
+---------------
+Bumped up to 24V operation.  Re-tuning moves:
+
+http://marlinfw.org/docs/gcode/M203.html
+
+Dump current settings with M503
+
+echo:Steps per unit:
+echo:  M92 X53.33 Y53.33 Z1511.79 E519.11
+echo:Maximum feedrates (mm/s):
+echo:  M203 X600000.00 Y600000.00 Z10.00 E100.00
+echo:Maximum Acceleration (mm/s2):
+echo:  M201 X600000 Y600000 Z1000 E5000
+echo:Acceleration: S=acceleration, T=retract acceleration
+echo:  M204 S3000.00 T3000.00
+echo:Advanced variables: S=Min feedrate (mm/s), T=Min travel feedrate (mm/s), B=minimum segment time (ms), X=maximum XY jerk (mm/s),  Z=maximum Z jerk (mm/s),  E=maximum E jerk (mm/s)
+echo:  M205 S0.00 T0.00 B20000 X3.00 Z0.40 E3.00
+echo:Home offset (mm):
+echo:  M206 X0.00 Y0.00 Z0.00
+echo:PID settings:
+echo:   M301 P10.20 I0.63 D40.00
+
+
+
+
+M201 sets max acceleration (mm/sec^2)
+M203 sets max feedrate (mm/sec)
+
+
+g1 x200 y200 f20000
+
+
+'f' moves are mm/minute
+firmware numbers are mm/second, off by 60x
+
+
+Crazy fast, but still doesn't seem to lose steps at 19.6VDC:
+M201 X60000 Y60000
+M203 X60000 Y60000
+g1 f60000
+g1 x200 y200
+g1 x300 y300
+
+
+
+M201 X600000 Y600000
+
+Too fast: loses steps at peak velocity:
+M203 X600000 Y600000
+
+Good and fast: 
+M203 X60000 Y60000
+
+g1 f600000
+g1 x200 y200
+g1 x300 y300
+
+
+
+Noticably slower:
+M201 X600 Y600
+
+Slow ramp-up:
+M201 X60 Y60
+
+
+Actual active acceleration seems to be the M204:
+At 19.6V, empty bed:
+  M204 S60000 ; uncapped
+
+Conservative:
+M201 X3000 Y1000 Z100 E
+M203 X1000 Y1000 Z8   E
+Midrange:
+M201 Y1500 X5000 
+
+Y change: 
+M201 Y1000
+M203 Y1100 
+G1 F100000
+G1 Y100 
+G1 Y400
+velocity:
+1100 fine
+5000 fine (never hits peak at 1000 accel)
+
+accel:
+1000 slow and careful (correct long-term speed)
+2000 might lose one occasional step
+2300 loses a tiny block of steps at each run (and still loses a few at 24V)
+2500 loses a few steps
+3000 loses most steps
+10000 loses all steps in Y axis
+
+X change:
+M201 X5000
+M203 X1100 
+G1 F100000
+G1 X100 
+G1 X400
+vel:
+1000 fine
+1100 fine
+1200 loses steps in big clunky chunks (?!)
+2000 loses steps
+5000 loses steps
+accel:
+1000 slow and fine
+3000 fine
+5000 seems reliable
+6000 still reliable
+7000 loses on return
+10000 loses most steps
+
+Z change: big limit is feedrate
+M201 Z100
+M203 Z8 
+G1 Z110
+G1 Z130
+Acceleration M201 Z10 is very slow. Z100 is about normal.  Z1000 looks same.
+Feedrate M203 Z100 moves too fast
+8 is probably safe
+10 is fine
+12, 13, 15 lose steps (!)
+20 hits resonance and loses steps
+
+
+
+Actual used acceleration is smaller of:
+  M204 Sxxxx global limit (combined X and Y?)
+  M203 per-axis limit
+
+Right thing is probably to leave S big, do work per-axis.
+
+
+
 
 
 
