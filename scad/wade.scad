@@ -22,7 +22,7 @@ module b608(h = 7,clearance=0) {
 
 screw_depth = 5;
 
-motor_y = 28;
+motor_y = 30;
 driven_y = 31.5;
 motor_min = 26 + 5;
 motor_max = 36;
@@ -30,7 +30,7 @@ motor_x = (motor_min + motor_max) / 2;
 motor_leeway = motor_max - motor_min;
 
 thickness = 5;
-base_thickness = 6;
+base_thickness = 7;
 width = 26;
 height = 52;
 mount_pitch = 25;
@@ -85,7 +85,7 @@ module keyhole(r, h, l) {
 nut_inset = min_wall;
 
 jhead_screw_angle = 5;
-jhead_nut_slot = nut_thickness(screw_nut(jhead_screw)) + 0.3;
+jhead_nut_slot = 4.0; // M3 Nylock // nut_thickness(screw_nut(jhead_screw)) + 0.3;
 
 module wades_block_stl() {
     stl("wades_block");
@@ -99,8 +99,19 @@ module wades_block_stl() {
 
 
     difference(){
-        union(){
-            cube([81, height, thickness]);                                  // motor plate
+       union(){
+			// Main base plate:
+            cube([81, height, thickness]);
+			
+			// Guard to protect big gear from wiper
+			translate([bearing_housing_x,0,0])
+			cube([width-1,height+12,3]);
+			
+			// Plate to mount wiring
+			translate([bearing_housing_x,0,0])
+			cube([4,height+12,width]);
+
+			// motor plate
             cube([filament_x + 25 - 3.5, base_thickness, width]);           // base
             translate([filament_x + 25 - 3.5, base_thickness / 2, filament_z])
                 intersection() {
@@ -215,7 +226,7 @@ module wades_block_stl() {
             rotate([90,0,0]) {
                 if(hot_end_groove_mount(hot_end)) assign(relief = 0.5) {
 
-                    translate([0, 0, -insulator_depth + jhead_groove_offset() / 2 + eta])         // slot for the flange
+                    #translate([0, 0, -insulator_depth + jhead_groove_offset() / 2 + eta])         // slot for the flange
                         keyhole(insulator / 2, jhead_groove_offset(), width - filament_z);
 
                     translate([0, 0, -insulator_depth + relief / 2])
@@ -531,11 +542,11 @@ module wades_big_gear_x5_stl(){
 }
 
 
-if(1)
+if(0)
     rotate([90, 0, 0])
         wades_assembly(true);
 else
     if(1)
         wades_extruder_stl();
     else
-        wades_big_gear_x5_stl();
+        wades_big_gear_stl();

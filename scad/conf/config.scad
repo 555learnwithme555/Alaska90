@@ -23,7 +23,7 @@ cable_strip_real_color = "fuchsia";
 belt_real_color = "yellow";
 bulldog_real_color ="black";
 
-eta = 0.01;                     // small fudge factor to stop CSG barfing on coincident faces.
+eta = 0.03;                     // small fudge factor to stop CSG barfing on coincident faces.
 $fa = 5;
 $fs = 0.5;
 

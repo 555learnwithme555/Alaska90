@@ -12,7 +12,7 @@ jhead   = 3;
 makerbot = 4;
 
 function jhead_groove() = 4.64;
-function jhead_groove_offset() = 12; // ???   5.1; //4.76;
+function jhead_groove_offset() = 14; // ???   5.1; //4.76;
 
 jhead_inset = jhead_groove_offset();
 
@@ -24,7 +24,7 @@ JHeadMk4 =            [jhead,   "HEJH16340: JHead MK4 hot end", 64, jhead_inset,
 JHeadMk5 =            [jhead,   "HEJH16340: JHead MK5 hot end", 54, jhead_inset, 16,    40, "black", 12,            true, 9     + 4, [0, 2.38, -5]];
 
 // OSL addition:
-JHeadMk5clone =            [jhead,   "HEJH16340: JHead MK5 clone hot end", 60.5, 11.5, 16,    46, "black", 12,            true, 9     + 4, [0, 2.38, -5]];
+JHeadMk5clone =            [jhead,   "HEJH16340: JHead MK5 clone hot end", 60.5, 13.5, 16,    46, "black", 12,            true, 9     + 4, [0, 2.38, -5]];
 
 makerbotMk6 =         [makerbot,  "Makerbot Mk6 hot end", 74, 20, 16,    40, "black", 12,            true, 9     + 4, false];
 
